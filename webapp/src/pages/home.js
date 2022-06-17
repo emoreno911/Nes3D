@@ -2,22 +2,17 @@ import { Link } from "react-router-dom";
 
 function Home() {
     return (
-        <div>
-            <ul className="mt-4 w-full pl-2 text-blue-500">
-                <li className="inline-block">
-                    <Link to="/">
-                        <span className="block font-semibold pr-4 h-12">Home</span>
-                    </Link>
-                </li>
-                <li className="inline-block">
-                    <Link to="/visual">
-                        <span className="block font-semibold pr-4 h-12">Viz</span>
-                    </Link>
-                </li>
-            </ul>
+        <div className="h-screen max-w-screen-sm mx-auto flex flex-col items-center justify-center">
+            <div className="text-center">
+                <h1 className="text-6xl font-bold my-5">Nes<span className="text-blue-unique">3D</span></h1>
+                <h2 className="text-lg font-light my-10  uppercase">An interactive visualization for nested NFTs on the UNIQUE Network</h2>
 
-            <div>
-                <h3 className="text-lg my-3 pl-2">Home</h3>
+                <Link to="/visual">
+                    <span className="block bg-darkmode uppercase font-bold text-lg py-3 mb-3">Music Bundle Demo</span>
+                </Link>
+                <Link to="/visual">
+                <span className="block bg-darkmode uppercase font-bold text-lg py-3">Game Bundle Demo</span>
+                </Link>
             </div>
         </div>
     )

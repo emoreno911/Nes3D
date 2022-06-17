@@ -1,10 +1,45 @@
+:root {
+  --lightgray: #f0f0f3;
+  --black: #262626;
+  --blue: #14a6f4;
+  --gray: #969696;
+  --grey: #969696;
+  --lightgrey: #f0f0f3;
+  --blue-darker: #0c7db9;
+  --error: #ff7f50;
+  --quartz: #ff4d6a;
+  --darkmode: #0a1635;
+  --darkmode-deep: #040e26;
+  --white: #f6f6f8;
+  --bgtext: #f4f3f3;
+  --blueShadow: rgba(2, 173, 231, 0.4);
+  --tags: #6f7889;
+  --darkgray: #333;
+  --blue-pale: #88b6d0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;900&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Raleway', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--darkmode-deep);
+  color: var(--bgtext);
+}
+
+.text-blue-unique {
+  color: var(--blue);
+}
+.bg-blue-unique {
+  background-color: var(--blue);
+}
+
+.bg-darkmode {
+  background-color: var(--darkmode);
 }
 
 code {

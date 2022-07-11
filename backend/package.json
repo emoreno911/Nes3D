@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "8.6.2",
+    "@polkadot/util": "9.3.1",
+    "@polkadot/util-crypto": "9.3.1",
+    "@polkadot/wasm-crypto": "6.1.1",
+    "@polkadot/keyring": "9.3.1",
+    "@polkadot/networks": "9.3.1",
+    "@unique-nft/quartz-mainnet-types": "0.6.1",
+    "@unique-nft/unique-mainnet-types": "0.6.3",
+    "@unique-nft/opal-testnet-types": "0.5.3",
+    "archy": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "uuid": "^8.3.2",
+    "web3": "1.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

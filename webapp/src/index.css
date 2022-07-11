@@ -28,7 +28,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--darkmode-deep);
+  background: linear-gradient(179deg, rgb(4 14 38) 0%, rgb(15 27 56) 45%, rgb(14 26 56) 100%);
   color: var(--bgtext);
+  overflow: hidden;
 }
 
 .text-blue-unique {
@@ -36,6 +38,10 @@ body {
 }
 .bg-blue-unique {
   background-color: var(--blue);
+}
+button.bg-blue-unique:hover {
+  background-color: var(--blue-darker);
+  transition: all 0.4s ease;
 }
 
 .bg-darkmode {
@@ -45,4 +51,218 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.item-selected {
+  background: rgba(255,255,255,.15);
+  border-radius: 5px;
+}
+
+.change-node-text {
+  position: absolute;
+  font-size: 1.25em;
+  color: #e7e7e7;
+  z-index: 10;
+  top: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 15px;
+}
+
+
+.loader {
+  display: block;
+  animation: rotate 2s infinite;
+  height: 50px;
+  width: 50px;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+.loader:before {
+  animation: box1 1s infinite;
+  background-color: #fff;
+  box-shadow: 30px 0 0 var(--blue);
+  margin-bottom: 10px;
+}
+.loader:after {
+  animation: box2 1s infinite;
+  background-color: var(--blue);
+  box-shadow: 30px 0 0 #fff;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg) scale(0.8) }
+  50% { transform: rotate(360deg) scale(1.2) }
+  100% { transform: rotate(720deg) scale(0.8) }
+}
+
+@keyframes box1 {
+  0% {
+    box-shadow: 30px 0 0 var(--blue);
+  }
+  50% {
+    box-shadow: 0 0 0 var(--blue);
+    margin-bottom: 0;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 var(--blue);
+    margin-bottom: 10px;
+  }
+}
+
+@keyframes box2 {
+  0% {
+    box-shadow: 30px 0 0 #fff;
+  }
+  50% {
+    box-shadow: 0 0 0 #fff;
+    margin-top: -20px;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #fff;
+    margin-top: 0;
+  }
+}
+
+
+.modal-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: rgba(0,0,0,.65);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+.modal-window.open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-window > div {
+  position: relative;
+}
+.modal-close {
+  color: #aaa;
+  position: absolute;
+  right: 5px;
+  text-align: center;
+  top: 5px;
+  text-decoration: none;
+}
+.modal-close:hover {
+  color: black;
+}
+.modal-close svg {
+	width: 24px;
+	height: 24px;
+}
+.modal-iframe {
+  width: 960px;
+  height: 560px;
+}
+.modal-backdrop {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+  background-color: transparent;
+}
+
+.modalpic {
+  width: 72px;
+  min-width: 72px;
+}
+.codeblock {
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  background: rgba(0,0,0,0.25);
+  padding: 10px 8px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+/** Side Modal **/
+.modal-wrap {
+  background-color: rgba(255,255,255,0);
+  position: absolute;
+  right: 20px;
+  top: 120px;
+  width: 250px;
+  height: calc(100% - 250px);
+  overflow: auto;
+}
+.modal-wrap::-webkit-scrollbar {
+  width: 8px;               /* width of the entire scrollbar */
+}
+.modal-wrap::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.6);       /* color of the tracking area */
+}
+.modal-wrap::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,.7);   /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 2px solid rgba(0,0,0,.6);  /* creates padding around scroll thumb */
+}
+.infomodal {
+  width: calc(100% - 16px);
+  min-height: 50px;
+  max-height: 500px;
+  background-color: rgba(29, 28, 50, 0.7);
+  padding: 8px;
+  margin-bottom: 5px;
+  color: #fff;
+  font-family: var(--primary-font);
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.infomodal .close {
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 100;
+}
+.infomodal b {
+  display: block;
+  margin-bottom: 10px;
+}
+.infolink {
+  text-align: right;
+  margin-bottom: 0;
+}
+.infolink a,
+.infolink a:focus {
+  color: #fff;
+}
+
+.infomodal .os-scrollbar-vertical {
+  width: 8px;
+}
+.infomodal .os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.3) !important;
+  margin: 2px 0px;
 }

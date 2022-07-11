@@ -8,10 +8,10 @@ function Home() {
                 <h2 className="text-lg font-light my-10  uppercase">An interactive visualization for nested NFTs on the UNIQUE Network</h2>
 
                 <Link to="/visual">
-                    <span className="block bg-darkmode uppercase font-bold text-lg py-3 mb-3">Music Bundle Demo</span>
+                    <span className="block bg-darkmode uppercase font-bold text-lg py-3 mb-3">Game Bundle Demo</span>
                 </Link>
-                <Link to="/visual">
-                <span className="block bg-darkmode uppercase font-bold text-lg py-3">Game Bundle Demo</span>
+                <Link to="/visual/20">
+                    <span className="block bg-darkmode uppercase font-bold text-lg py-3">About Nes3D</span>
                 </Link>
             </div>
         </div>

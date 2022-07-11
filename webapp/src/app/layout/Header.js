@@ -2,16 +2,14 @@ import { Link } from "react-router-dom";
 
 function Header() {
     return (
-        <ul className="mt-4 w-full pl-2">
+        <ul className="w-full fixed top-0 left-0 p-5 z-10">
             <li className="inline-block">
                 <Link to="/">
-                    <span className="block font-semibold pr-4 h-12">Home</span>
+                    <h3 className="text-4xl font-bold">Nes<span className="text-blue-unique">3D</span></h3>
                 </Link>
             </li>
             <li className="inline-block">
-                <Link to="/visual">
-                    <span className="block font-semibold pr-4 h-12">Viz</span>
-                </Link>
+                <span className="block pl-3">Game Bundle Demo</span>
             </li>
         </ul>
     )

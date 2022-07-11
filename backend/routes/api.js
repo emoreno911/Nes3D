@@ -26,10 +26,10 @@ router.post('/getNftThree', async (request, response) => {
     response.json({collectionId, ...result});
 });
 
-router.post('/nestNftToken', async (request, response) => {
+router.post('/nestToken', async (request, response) => {
 	const { collectionId, tokenId, newParentId, oldParentId } = request.body;
     const result = await nestNftToken(collectionId, tokenId, newParentId, oldParentId);
-    response.json({collectionId, ...result});
+    response.json({...result});
 });
 
 module.exports = router

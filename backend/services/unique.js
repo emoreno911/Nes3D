@@ -82,15 +82,10 @@ async function nestNftToken(collectionId, tokenId, newParentId, oldParentId) {
             newParent
         );
 
-        let parentToken = uniqueHelper.getCollectionTokenObject(cid, 1);
-        let tokens = await getNftTreeArray(parentToken, uniqueHelper);
-
-        return {
-            tokens
-        }
+        return { code: 200, err: false };
     } catch (error) {
-        console.log(error);
-        return { tokens: null }
+        console.log({error});
+        return { code: 500, err: true };
     }
 }
 

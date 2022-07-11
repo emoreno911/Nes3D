@@ -6,7 +6,7 @@ export const appMetadata = {
     icon: "https://res.cloudinary.com/dy3hbcg2h/image/upload/v1652131690/dz-logo-black_c86gzb.png"
 }
 
-export const backendBaseURL = process.env.REACT_APP_BACKEND_1;
+export const backendBaseURL = (window.location.hostname === 'localhost') ? "http://localhost:5000" : process.env.REACT_APP_BACKEND_1;
 
 export const request = async ({url, fname, method = 'GET', data = null, _baseURL = null}) => {
 	const instance = axios.create();
@@ -64,7 +64,7 @@ export async function getNftThree(collectionId) {
 
 export async function nestNftToken(data) {
     const response = await request({
-        _baseURL: process.env.REACT_APP_BACKEND_2,
+        _baseURL: (window.location.hostname === 'localhost') ? "http://localhost:5000" : process.env.REACT_APP_BACKEND_2,
         url: `/nestToken`,
         method: 'POST',
         fname: 'nestNftToken',

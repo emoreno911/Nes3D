@@ -8,7 +8,7 @@ import {
 export const DataContext = createContext();
 
 const DataContextProvider = (props) => { 
-	const collectionId = 1219;
+	const collectionId = 1220;
 	const [graphData, setGraphData] = useState(null);
 	const [currentParent, setCurrentParent] = useState(null);
 	const [currentChild, setCurrentChild] = useState(null);
@@ -42,18 +42,24 @@ const DataContextProvider = (props) => {
 			return;
 		}
 
-		setLoaderMessage("Updating tree structure...");
+		setLoaderMessage("Wait a moment, updating tree structure...");
 		const dataUpdated = await nestNftToken({
 			collectionId,
 			newParentId,
 			tokenId: currentChild,
 			oldParentId: currentParent
 		});
-		console.log('done!')
 
-		const data = formatGraphData(dataUpdated.tokens);
-		setGraphData(data);
-		setLoaderMessage(null);
+		if (dataUpdated.err) {
+			setLoaderMessage(null);
+			window.alert('nesting error!');
+			console.log('nesting error!');
+		}
+		else {
+			await getGraphData();
+			console.log('done!');
+		}
+
 		return true;
 	}
 

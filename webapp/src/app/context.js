@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import {
+	getNftInfo,
 	getNftThree,
 	nestNftToken,
 	getAccountBalance

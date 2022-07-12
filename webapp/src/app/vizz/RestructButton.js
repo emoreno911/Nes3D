@@ -26,9 +26,15 @@ const InfoIcon = () => (
 
 function RestructButton() {
     const { 
-        data:{ currentChild, isChangeNode },
+        data:{ graphData, currentChild, isChangeNode },
         fn: { setIsChangeNode }
     } = useContext(DataContext);
+
+    let isItem = false;
+    
+    if (graphData && currentChild) {
+        isItem = graphData.nodes.find(n => n.id === currentChild).type === "ITEM";
+    }
 
     return (
         <div className="change-node-text"> 
@@ -43,7 +49,7 @@ function RestructButton() {
             )
         }
         {
-            currentChild !== null && !isChangeNode && (
+            isItem && !isChangeNode && (
                 <button 
                     className="bg-blue-unique uppercase font-bold text-sm py-2 px-5 flex items-center rounded-sm"
                     onClick={() => setIsChangeNode(true)}

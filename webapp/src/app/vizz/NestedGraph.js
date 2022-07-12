@@ -8,7 +8,7 @@ let selectedNodes = new Set();
 function NestedGraph() {
     const fgRef = useRef();
     const { 
-        data:{ graphData, isChangeNode },
+        data:{ graphData, currentChild, isChangeNode },
         fn: { setCurrentParent, setCurrentChild, assignNewParent, setIsChangeNode } 
     } = useContext(DataContext);
 
@@ -20,6 +20,13 @@ function NestedGraph() {
         if (isChangeNode) 
             setCamera();
     }, [isChangeNode])
+
+    useEffect(() => {
+        if (!selectedNodes.has(currentChild) && selectedNodes.size === 1) {
+            selectedNodes.clear();
+            selectedNodes.add(currentChild);
+        }
+    }, [currentChild])
 
 	const handleClick = useCallback((node, evt) => {
 

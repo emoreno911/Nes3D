@@ -9,12 +9,12 @@ function ImageWithFallback({ fallback, src, ...props }) {
     return <img src={imgSrc ? imgSrc : fallback} onError={onError} {...props} />;
 }
 
-function Item({data, current}) {
+function Item({data, current, onClick}) {
     const { id, name, type, category, image } = data;
     const img = image.indexOf('http') === -1 ? `https://${image}` : image;
     const selected = current === id ? "item-selected" : "";
     return (
-        <div className={`w-1/4 mb-5 ${selected}`}>
+        <div className={`w-1/4 mb-5 cursor-pointer ${selected}`} onClick={onClick}>
             <p className='text-center mb-3'>{name}</p>
             <div className="p-3">
                 <ImageWithFallback 
@@ -30,7 +30,7 @@ function Item({data, current}) {
 function DetailView() {
     const { 
         data:{ graphData, currentParent, currentChild },
-        fn: { setIsChangeNode, setShowModalNft }
+        fn: { setCurrentChild, setCurrentParent, setShowModalNft }
     } = useContext(DataContext);
 
     if (currentParent === null) {
@@ -45,6 +45,10 @@ function DetailView() {
     const children = graphData.links.filter(l => l.source.id === currentParent);
     const items = children.map(l => graphData.nodes.find(n => n.id === l.target.id));
 
+    const handleImageSelected = (id, type) => {
+            setCurrentChild(id);
+    }
+
     return (
         <>
             <div className="flex justify-between border-b-2">
@@ -54,7 +58,14 @@ function DetailView() {
             <ScrollContainer style={{height: 'calc(100vh - 120px)'}}>
                 <div className='w-full flex flex-wrap py-5'>
                     {
-                        items.map(n => <Item key={n.id} data={n} current={currentChild} />)
+                        items.map(n => 
+                            <Item 
+                                key={n.id} 
+                                data={n} 
+                                current={currentChild}
+                                onClick={() => handleImageSelected(n.id, n.type)} 
+                            />
+                        )
                     }
                 </div>
             </ScrollContainer>

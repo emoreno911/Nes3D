@@ -34,8 +34,8 @@ router.post('/nestToken', async (request, response) => {
 });
 
 router.post('/updateParentImage', async (request, response) => {
-	const { collectionId, tokenId } = request.body;
-    const result = await updateParentImage(collectionId, tokenId);
+	const { childrenImgs } = request.body;
+    const result = await updateParentImage(childrenImgs);
     response.json({...result});
 });
 

@@ -4,7 +4,8 @@ import {
 	getNftThree,
 	nestNftToken,
 	getAccountBalance,
-	updateParentImage
+	updateParentImage,
+	setNftImage
 } from './utils';
 
 export const DataContext = createContext();
@@ -68,12 +69,16 @@ const DataContextProvider = (props) => {
 		return true;
 	}
 
-	const updateNftImage = (tokenId) => {
+	const updateNftImage = async (tokenId) => {
 		// update avatars
 		console.log(`updating image for: ${tokenId}`)
-		updateParentImage(1220, 3).then(response => {
-			console.log(response);
-		})
+		const children = graphData.nodes.filter(t => t.parentId === tokenId);
+		const images = children.map(c => c.image.split('/')[1]); 
+
+		const {url, success} = await updateParentImage(JSON.stringify(images)); // compose new image
+
+		if (success)
+			setNftImage(collectionId, tokenId, url).then(res => console.log(res)); // update in blockchain
 	}
 
 	const formatGraphData = (data) => {

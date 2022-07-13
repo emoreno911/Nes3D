@@ -189,8 +189,8 @@ code {
 }
 
 .modalpic {
-  width: 72px;
-  min-width: 72px;
+  width: 128px;
+  min-width: 128px;
 }
 .codeblock {
   overflow-wrap: break-word;

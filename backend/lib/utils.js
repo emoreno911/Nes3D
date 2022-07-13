@@ -1,9 +1,6 @@
-var archy = require('archy');
-
-let threeArray = [];
-
 const getNftTreeArray = async (parentToken, uniqueHelper) => {
-    const r = await buildNftTreeArray(parentToken, uniqueHelper);
+    let threeArray = [];
+    const r = await buildNftTreeArray(threeArray, parentToken, uniqueHelper);
     const result = threeArray.map(({ tokenId, parentId, properties }) => {
         const obj = {};
         properties.forEach(p => {
@@ -17,7 +14,7 @@ const getNftTreeArray = async (parentToken, uniqueHelper) => {
     return result;
 }
 
-const buildNftTreeArray = async (token, uniqueHelper, parentId = null) => {
+const buildNftTreeArray = async (threeArray, token, uniqueHelper, parentId = null) => {
     const collectionId = token.collectionId;
 
     const tokenAddress = uniqueHelper.util.getNestingTokenAddress(
@@ -32,7 +29,7 @@ const buildNftTreeArray = async (token, uniqueHelper, parentId = null) => {
     const tokenId = token.tokenId;
 
     const tokenNodes = await Promise.all(
-        children.map(async (childToken) => await buildNftTreeArray(childToken, uniqueHelper, tokenId))
+        children.map(async (childToken) => await buildNftTreeArray(threeArray, childToken, uniqueHelper, tokenId))
     );
 
     const propertyNodes = 

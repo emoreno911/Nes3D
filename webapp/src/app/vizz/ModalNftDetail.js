@@ -82,7 +82,7 @@ const ModalNftDetail = () => {
                                     className="modalpic rounded-lg mr-5"
                                 />
                             </div>
-                            <div className="w-2/3 sm:w-4/5">
+                            <div className="w-2/3">
                                 <div className="mb-2">Name: <span className="text-gray-400">{data.name}</span></div>
                                 <div className="mb-2">Collection ID: <span className="text-gray-400">{collectionId}</span></div>
                                 <div className="mb-2">Owner: <pre className="codeblock">{data.owner}</pre></div>

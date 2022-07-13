@@ -3,7 +3,8 @@ import {
 	getNftInfo,
 	getNftThree,
 	nestNftToken,
-	getAccountBalance
+	getAccountBalance,
+	updateParentImage
 } from './utils';
 
 export const DataContext = createContext();
@@ -17,7 +18,6 @@ const DataContextProvider = (props) => {
 	const [showModalNft, setShowModalNft] = useState(false);
 	const [loaderMessage, setLoaderMessage] = useState(null);
 	const [modals, setModals] = useState([]);
-    const [status, setStatus] = useState('');
 
 	useEffect(() => {
 		getBalance();
@@ -44,11 +44,12 @@ const DataContextProvider = (props) => {
 		}
 
 		setLoaderMessage("Wait a moment, updating tree structure...");
+		const oldParentId = currentParent;
 		const dataUpdated = await nestNftToken({
 			collectionId,
 			newParentId,
-			tokenId: currentChild,
-			oldParentId: currentParent
+			oldParentId,
+			tokenId: currentChild
 		});
 
 		if (dataUpdated.err) {
@@ -58,10 +59,21 @@ const DataContextProvider = (props) => {
 		}
 		else {
 			await getGraphData();
+			// if the newParent is backpack we update image for oldParent
+			const tid = newParentId === 2 ? oldParentId : newParentId;
+			updateNftImage(tid);
 			console.log('done!');
 		}
 
 		return true;
+	}
+
+	const updateNftImage = (tokenId) => {
+		// update avatars
+		console.log(`updating image for: ${tokenId}`)
+		updateParentImage(1220, 3).then(response => {
+			console.log(response);
+		})
 	}
 
 	const formatGraphData = (data) => {
@@ -83,7 +95,6 @@ const DataContextProvider = (props) => {
 	}
 
 	const data = {
-		status,
 		modals,
 		graphData,
 		collectionId,
@@ -103,6 +114,7 @@ const DataContextProvider = (props) => {
 		assignNewParent,
 		setLoaderMessage,
 		setShowModalNft,
+		updateNftImage,
 		closeModal
 	}
 

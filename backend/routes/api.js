@@ -1,6 +1,7 @@
 const express = require('express');
 const { 
     requestNftInfo,
+    updateParentImage,
     requestAccountBalance,
     requestNftThree,
     nestNftToken
@@ -29,6 +30,12 @@ router.post('/getNftThree', async (request, response) => {
 router.post('/nestToken', async (request, response) => {
 	const { collectionId, tokenId, newParentId, oldParentId } = request.body;
     const result = await nestNftToken(collectionId, tokenId, newParentId, oldParentId);
+    response.json({...result});
+});
+
+router.post('/updateParentImage', async (request, response) => {
+	const { collectionId, tokenId } = request.body;
+    const result = await updateParentImage(collectionId, tokenId);
     response.json({...result});
 });
 

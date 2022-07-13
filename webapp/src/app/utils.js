@@ -62,6 +62,18 @@ export async function getNftThree(collectionId) {
     return response;
 }
 
+export async function updateParentImage(collectionId, tokenId) {
+    const response = await request({
+        _baseURL: backendBaseURL,
+        url: `/updateParentImage`,
+        method: 'POST',
+        fname: 'updateParentImage',
+        data: {collectionId, tokenId},
+    });
+
+    return response;
+}
+
 export async function nestNftToken(data) {
     const response = await request({
         _baseURL: (window.location.hostname === 'localhost') ? "http://localhost:5000" : process.env.REACT_APP_BACKEND_2,

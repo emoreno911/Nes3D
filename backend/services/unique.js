@@ -1,6 +1,7 @@
 const { UniqueHelper } = require('../lib/unique');
 const { Logger } = require('../lib/logger');
 const { getNftTreeArray } = require('../lib/utils');
+const { composeAndUpload } = require('./upload');
 
 require('dotenv').config();
 
@@ -9,29 +10,39 @@ const operatorSeed = process.env.OPERATOR_SEED;
 const wsEndPoint = "wss://ws-rc.unique.network";
 
 async function requestAccountBalance(addr) {
-    const uniqueHelper = new UniqueHelper(new Logger());
-    await uniqueHelper.connect(wsEndPoint);
+    try {
+        const uniqueHelper = new UniqueHelper(new Logger());
+        await uniqueHelper.connect(wsEndPoint);
 
-    const balance = await uniqueHelper.getSubstrateAccountBalance(addr);
-    console.log(`Balance for ${addr} is: ${balance}`);
+        const balance = await uniqueHelper.getSubstrateAccountBalance(addr);
+        console.log(`Balance for ${addr} is: ${balance}`);
 
-    return {
-        balance: balance.toString()
+        return {
+            balance: balance.toString()
+        }
+    } catch (error) {
+        console.log(error);
+        return { balance: "req error" }
     }
 }
 
 async function requestNftInfo(collectionId, tokenId) {
-    const uniqueHelper = new UniqueHelper(new Logger());
-    await uniqueHelper.connect(wsEndPoint);
+    try {
+        const uniqueHelper = new UniqueHelper(new Logger());
+        await uniqueHelper.connect(wsEndPoint);
 
-    const int = (n) => parseInt(n);
-    const cid = int(collectionId);
-    const tid = int(tokenId);
-    const token = uniqueHelper.getCollectionTokenObject(cid, tid);
-    const tokenInfo = await token.getData();
+        const int = (n) => parseInt(n);
+        const cid = int(collectionId);
+        const tid = int(tokenId);
+        const token = uniqueHelper.getCollectionTokenObject(cid, tid);
+        const tokenInfo = await token.getData();
 
-    return {
-        tokenInfo
+        return {
+            tokenInfo
+        }
+    } catch (error) {
+        console.log(error);
+        return { tokenInfo: null }
     }
 }
 
@@ -89,9 +100,66 @@ async function nestNftToken(collectionId, tokenId, newParentId, oldParentId) {
     }
 }
 
+async function updateParentImage(collectionId, tokenId) {
+    const { tokens } = await requestNftThree(collectionId);
+
+    if (tokens === null)
+        return { code: 500, success: false };
+
+    const parent = tokens.find(t => t.tokenId === tokenId);
+    
+    if (parent.properties.type !== "AVATAR")
+        return { code: 201, success: false, parent };
+
+    const children = tokens.filter(t => t.parentId === tokenId);
+    const images = children.map(c => c.properties.image.split('/')[1]); 
+    const url = await composeAndUpload(images);
+
+    if (url === null)
+        return { code: 202, success: false };
+
+    const success = await updateTokenProperties(
+        collectionId,
+        tokenId,
+        [
+            {
+                key: 'image',
+                value: url
+            },
+        ]
+    );
+
+    return success ? { code: 200, success: true } : { code: 200, success: false };
+}
+
+async function updateTokenProperties(collectionId, tokenId, props) {
+    const uniqueHelper = new UniqueHelper(new Logger());
+    await uniqueHelper.connect(wsEndPoint);
+
+    const user = uniqueHelper.util.fromSeed(operatorSeed);
+
+    try {
+        await uniqueHelper.setNFTTokenProperties(
+            user,
+            collectionId,
+            tokenId,
+            props
+        );
+    
+        console.log(`updated token properties: cid=${collectionId} tid=${tokenId}`);
+        
+        return true;
+    } catch (err) {
+        console.error(error);
+        return false;
+    }
+}
+
+
 module.exports = {
     requestNftInfo,
-    requestAccountBalance,
+    updateParentImage,
+    requestAccountBalance,    
     requestNftThree,
     nestNftToken
 }

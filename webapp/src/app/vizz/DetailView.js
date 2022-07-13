@@ -30,7 +30,7 @@ function Item({data, current, onClick}) {
 function DetailView() {
     const { 
         data:{ graphData, currentParent, currentChild },
-        fn: { setCurrentChild, setCurrentParent, setShowModalNft }
+        fn: { setCurrentChild, updateNftImage, setShowModalNft }
     } = useContext(DataContext);
 
     if (currentParent === null) {
@@ -53,6 +53,7 @@ function DetailView() {
         <>
             <div className="flex justify-between border-b-2">
                 <h4 className="text-3xl border-b-0">{parent.name}</h4>
+                <button className="bg-green-500 font-semibold py-1 px-5" onClick={() => updateNftImage(true)}>TEST</button>
                 <button className="bg-blue-unique font-semibold py-1 px-5" onClick={() => setShowModalNft(true)}>Details</button>
             </div>
             <ScrollContainer style={{height: 'calc(100vh - 120px)'}}>

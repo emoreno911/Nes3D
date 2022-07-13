@@ -44,7 +44,7 @@ function RestructButton() {
                     className="bg-blue-500 bg-opacity-30 uppercase font-semibold text-sm py-2 px-5 flex items-center rounded-sm"
                 >
                     <InfoIcon /> 
-                    <span className="ml-2">Now select a new parent for the highlighted Item</span>
+                    <span className="ml-2">Now select a new parent</span>
                 </button>
             )
         }

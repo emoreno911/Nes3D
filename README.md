@@ -6,4 +6,8 @@ Since the birth of the disruptive concept of NFT’s it was known that we were o
 
 There is a lack of platforms to visualize this technology and that's why we thought of one where not only to visualize but to interact with those NFTs. So we describe **Nes3D** as a tool that allows users to visualize and interact with nested NFT’s in a comprehensive and easy way.
 
-With this app you can visualize NFT nested structures in a 3D tree. The current demo structure could be an application for a game where you can equipe the different avatars (they're NFTs) within your account with game assets (they're NFTs too). The main node is the *User's Account* then the children will be the *Avatars*/*Backpack* and the grandchildren will be the *Game Assets*, you can move assets from your backpack to your avatars and viceveza, and all the relationships will be updated in the **Unique's** blockchain. After moving an asset the associated avatar image will be updated in the blockchain with a composition of the children that remain nested in it.
+<img src="https://github.com/emoreno911/Nes3D/blob/main/webapp/public/nes3d-2.PNG?raw=true" alt="image" />
+
+With this app you can visualize NFT nested structures in a 3D tree. The current demo structure could be an application for a game where you can equip the different avatars (they're NFTs) within your account with game assets (they're NFTs too). The main node is the *User's Account* then the children will be the *Avatars*/*Backpack* and the grandchildren will be the *Game Assets*, you can move assets from your backpack to your avatars and vice verza, and all the relationships will be updated in the **Unique's** blockchain. After moving an asset the associated avatar image will be updated in the blockchain with a composition of the children that remain nested in it.
+
+<img src="https://github.com/emoreno911/Nes3D/blob/main/webapp/public/nes3d-12.PNG?raw=true" alt="image" />
